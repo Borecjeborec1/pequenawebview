@@ -404,7 +404,7 @@ class Window:
 
         for func in functions:
             name = func.__name__
-            self._functions[name] = func
+            self._functions["exposed." + name] = func
 
             try:
                 params = list(inspect.getfullargspec(func).args)  # Python 3
@@ -412,7 +412,7 @@ class Window:
                 params = list(inspect.getargspec(func).args)  # Python 2
 
             func_list.append({
-                'func': name,
+                'func': "exposed." + name,
                 'params': params
             })
 
@@ -420,10 +420,7 @@ class Window:
             self.evaluate_js('window.pywebview._createApi(%s)' % func_list)
 
     def expose_class(self, cls):
-        if not inspect.isclass(cls):
-            raise TypeError('Parameter must be a class')
-
-        def get_methods(cls, prefix=cls.__name__):
+        def get_methods(cls, prefix):
             func_list = []
             for name, func in cls.__dict__.items():
                 if inspect.isclass(func):
@@ -444,7 +441,11 @@ class Window:
                     })
             return func_list
 
-        func_list = get_methods(cls)
+        if inspect.isclass(cls):
+            func_list = get_methods(cls, cls.__name__)
+        else:
+            func_list = get_methods(cls.__class__, cls.__class__.__name__)
+
         if self.events.loaded.is_set():
             self.evaluate_js('window.pywebview._createApi(%s)' % func_list)
 

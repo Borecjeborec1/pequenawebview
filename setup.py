@@ -23,6 +23,8 @@ install_requires = [
 with open('README.md') as fh:
     long_description = fh.read()
 
+VERSION = "4.1.3"
+
 setup(
     name='pequenawebview',
     author='Roman Sirokov',
@@ -35,7 +37,7 @@ setup(
     keywords=['gui', 'webkit', 'html', 'web'],
     install_requires=install_requires,
     extras_require=extras_require,
-    version='4.1.1',
+    version=VERSION,
     include_package_data=True,
     packages=['webview', 'webview.js', 'webview.platforms'],
     package_dir={'webview': 'webview'},
