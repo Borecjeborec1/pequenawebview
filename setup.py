@@ -24,18 +24,18 @@ with open('README.md') as fh:
     long_description = fh.read()
 
 setup(
-    name='pywebview',
+    name='pequenawebview',
     author='Roman Sirokov',
     author_email='roman@flowrl.com',
-    description=('Build GUI for your Python program with JavaScript, HTML, and CSS.'),
+    description=(
+        'Build GUI for your Python program with JavaScript, HTML, and CSS.'),
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/r0x0r/pywebview',
-    download_url='https://github.com/r0x0r/pywebview/archive/4.1.tar.gz',
+    url='https://github.com/Borecjeborec1/pequenawebview',
     keywords=['gui', 'webkit', 'html', 'web'],
     install_requires=install_requires,
     extras_require=extras_require,
-    version='4.1',
+    version='4.1.1',
     include_package_data=True,
     packages=['webview', 'webview.js', 'webview.platforms'],
     package_dir={'webview': 'webview'},

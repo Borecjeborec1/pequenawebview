@@ -1,5 +1,8 @@
 {
   "scripts": {
+    "build:py": "python setup.py sdist bdist_wheel",
+    "publish:py": "twine upload dist/*",
+    "full:py": "node helpers/pythonPublish.js && npm run build:py && npm run publish:py",
     "docs:dev": "vuepress dev docs",
     "docs:build": "NODE_ENV=production vuepress build docs"
   },

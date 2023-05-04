@@ -16,8 +16,16 @@ window.pywebview = {
                 "}); " +
                 "window.pywebview._bridge.call('" + funcName + "', arguments, __id); " +
                 "return promise;"
-
-            window.pywebview.api[funcName] = new Function(params, funcBody)
+            var funcNameParts = funcName.split(".");
+            var currentApi = window.pywebview.api;
+            for (var j = 0; j < funcNameParts.length - 1; j++) {
+                var className = funcNameParts[j];
+                if (!currentApi[className]) {
+                    currentApi[className] = {};
+                }
+                currentApi = currentApi[className];
+            }
+            currentApi[funcNameParts[funcNameParts.length - 1]] = new Function(params, funcBody);
             window.pywebview._returnValues[funcName] = {}
         }
     },
